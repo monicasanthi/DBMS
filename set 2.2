@@ -1,0 +1,40 @@
+mysql> create database income_data;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use income_data;
+Database changed
+mysql> create table income_data(monthly_value int(10),income_level varchar(20));
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+
+mysql> desc income_data;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| monthly_value | int         | YES  |     | NULL    |       |
+| income_level  | varchar(20) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into income_data(monthly_value)values(4000),(5000),(6000);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> update income_data
+    -> set income_level =
+    -> case
+    -> when monthly_value = 4000 then 'low income'
+    -> when monthly_value = 5000 then 'avg income'
+    -> else 'high income'
+    -> end;
+Query OK, 3 rows affected (0.00 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from income_data;
++---------------+--------------+
+| monthly_value | income_level |
++---------------+--------------+
+|          4000 | low income   |
+|          5000 | avg income   |
+|          6000 | high income  |
++---------------+--------------+
+3 rows in set (0.00 sec)
