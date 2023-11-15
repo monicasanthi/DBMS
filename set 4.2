@@ -1,0 +1,38 @@
+mysql> DELIMITER //
+mysql> create procedure repeatuntilincome4000()
+    -> begin
+    -> declare income decimal(10,2) default 0;
+    -> my_loop:loop
+    -> set income = income+1000;
+    -> if income >= 4000 then leave my_loop;
+    -> end if;
+    -> select income as currentIncome;
+    -> iterate my_loop;
+    -> end loop my_loop;
+    -> end //
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> DELIMITER ;
+mysql> call repeatuntilIncome4000();
++---------------+
+| currentIncome |
++---------------+
+|       1000.00 |
++---------------+
+1 row in set (0.01 sec)
+
++---------------+
+| currentIncome |
++---------------+
+|       2000.00 |
++---------------+
+1 row in set (0.01 sec)
+
++---------------+
+| currentIncome |
++---------------+
+|       3000.00 |
++---------------+
+1 row in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
