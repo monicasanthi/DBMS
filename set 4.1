@@ -1,0 +1,76 @@
+mysql> create database work;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use work;
+Database changed
+
+mysql> create table work(sno int(10),name varchar(20),desi varchar(20),branch varchar(20));
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+
+mysql> desc work;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| sno    | int         | YES  |     | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| desi   | varchar(20) | YES  |     | NULL    |       |
+| branch | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into  work(sno,name,desi,branch)values(1,'kanna','manager','chennai'),(2,'mahesh','supervisor','maduari'),(3,'maruthi','assistant','trichy');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from work;
++------+---------+------------+---------+
+| sno  | name    | desi       | branch  |
++------+---------+------------+---------+
+|    1 | kanna   | manager    | chennai |
+|    2 | mahesh  | supervisor | maduari |
+|    3 | maruthi | assistant  | trichy  |
++------+---------+------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> alter table work modify column name varchar(50);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe work;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| sno    | int         | YES  |     | NULL    |       |
+| name   | varchar(50) | YES  |     | NULL    |       |
+| desi   | varchar(20) | YES  |     | NULL    |       |
+| branch | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create table emp as select * from work;
+Query OK, 3 rows affected (0.06 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp;
++------+---------+------------+---------+
+| sno  | name    | desi       | branch  |
++------+---------+------------+---------+
+|    1 | kanna   | manager    | chennai |
+|    2 | mahesh  | supervisor | maduari |
+|    3 | maruthi | assistant  | trichy  |
++------+---------+------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> delete from work where sno =2;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> drop table work;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show tables;
++----------------+
+| Tables_in_work |
++----------------+
+| emp            |
++----------------+
+1 row in set (0.00 sec)
