@@ -1,0 +1,76 @@
+mysql> use empe;
+Database changed
+
+mysql> desc table empe;
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------+
+| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------+
+|  1 | SIMPLE      | empe  | NULL       | ALL  | NULL          | NULL | NULL    | NULL |    1 |   100.00 | NULL  |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> create database ep;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use ep;
+Database changed
+mysql> create table ep(sno int(10),name varchar(10),desi varchar(10),branch varchar(10));
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+
+mysql> desc ep;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| sno    | int         | YES  |     | NULL    |       |
+| name   | varchar(10) | YES  |     | NULL    |       |
+| desi   | varchar(10) | YES  |     | NULL    |       |
+| branch | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into ep (sno,name,desi,branch)values(1,'suresh','manager','chennai'),(2,'ramesh','ass','hosur'),(3,'sam','hr','trichy')
+;
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from ep;
++------+--------+---------+---------+
+| sno  | name   | desi    | branch  |
++------+--------+---------+---------+
+|    1 | suresh | manager | chennai |
+|    2 | ramesh | ass     | hosur   |
+|    3 | sam    | hr      | trichy  |
++------+--------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> alter table ep add column salary decimal(10,2);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table ep modify column name varchar(10);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe ep;
++--------+---------------+------+-----+---------+-------+
+| Field  | Type          | Null | Key | Default | Extra |
++--------+---------------+------+-----+---------+-------+
+| sno    | int           | YES  |     | NULL    |       |
+| name   | varchar(10)   | YES  |     | NULL    |       |
+| desi   | varchar(10)   | YES  |     | NULL    |       |
+| branch | varchar(10)   | YES  |     | NULL    |       |
+| salary | decimal(10,2) | YES  |     | NULL    |       |
++--------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table ep rename to eepp;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> delete from eepp where sno=2;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> drop table eepp;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show tables;
+Empty set (0.01 sec)
