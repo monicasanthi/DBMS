@@ -1,0 +1,89 @@
+use bank;
+Database changed
+
+mysql> desc bank;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| s_no     | int         | YES  |     | NULL    |       |
+| cus_name | varchar(20) | YES  |     | NULL    |       |
+| acc_no   | varchar(20) | YES  |     | NULL    |       |
+| balance  | int         | YES  |     | NULL    |       |
+| branch   | varchar(10) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select *from bank;
++------+----------+----------+---------+---------+
+| s_no | cus_name | acc_no   | balance | branch  |
++------+----------+----------+---------+---------+
+|    1 | ram      | sbi12345 |   23000 | arni    |
+|    2 | sam      | sbi76543 |   35000 | chennai |
++------+----------+----------+---------+---------+
+2 rows in set (0.00 sec)
+
+mysql> insert into bank(s_no,cus_name,acc_no,balance,branch)values(3,'harish
+',45678,25000,'adayar');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from bank;
++------+----------+----------+---------+---------+
+| s_no | cus_name | acc_no   | balance | branch  |
++------+----------+----------+---------+---------+
+|    1 | ram      | sbi12345 |   23000 | arni    |
+|    2 | sam      | sbi76543 |   35000 | chennai |
+|    3 | harish   | 45678    |   25000 | adayar  |
++------+----------+----------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from bank where cus_name='ram';
++------+----------+----------+---------+--------+
+| s_no | cus_name | acc_no   | balance | branch |
++------+----------+----------+---------+--------+
+|    1 | ram      | sbi12345 |   23000 | arni   |
++------+----------+----------+---------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from bank where balance >25000;
++------+----------+----------+---------+---------+
+| s_no | cus_name | acc_no   | balance | branch  |
++------+----------+----------+---------+---------+
+|    2 | sam      | sbi76543 |   35000 | chennai |
++------+----------+----------+---------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from bank where balance between 20000 and 25000;
++------+----------+----------+---------+--------+
+| s_no | cus_name | acc_no   | balance | branch |
++------+----------+----------+---------+--------+
+|    1 | ram      | sbi12345 |   23000 | arni   |
+|    3 | harish   | 45678    |   25000 | adayar |
++------+----------+----------+---------+--------+
+2 rows in set (0.00 sec)
+
+mysql> desc bank;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| s_no     | int         | YES  |     | NULL    |       |
+| cus_name | varchar(20) | YES  |     | NULL    |       |
+| acc_no   | varchar(20) | YES  |     | NULL    |       |
+| balance  | int         | YES  |     | NULL    |       |
+| branch   | varchar(10) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+mysql> update bank set branch='poonamalle'where s_no=2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from bank;
++------+----------+----------+---------+------------+
+| s_no | cus_name | acc_no   | balance | branch     |
++------+----------+----------+---------+------------+
+|    1 | ram      | sbi12345 |   23000 | arni       |
+|    2 | sam      | sbi76543 |   35000 | poonamalle |
+|    3 | harish   | 45678    |   25000 | adayar     |
++------+----------+----------+---------+------------+
+3 rows in set (0.00 sec)
