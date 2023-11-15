@@ -1,0 +1,73 @@
+mysql> create database book;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use book;
+Database changed
+
+mysql> create table book(s_no int(10),b_name varchar(50),author varchar(50),price int(10),publisher varchar(50));
+Query OK, 0 rows affected, 2 warnings (0.04 sec)
+
+mysql> desc book;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| s_no      | int         | YES  |     | NULL    |       |
+| b_name    | varchar(50) | YES  |     | NULL    |       |
+| author    | varchar(50) | YES  |     | NULL    |       |
+| price     | int         | YES  |     | NULL    |       |
+| publisher | varchar(50) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> insert into book(s_no,b_name,author,price,publisher)values(1,'DBMS','seema kedhar',250,'charulatha'),(2,'toc','john martin',400,'tata mcgraw hill'),(3,'c','balagurusamy',300,'technical');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from book;
++------+--------+--------------+-------+------------------+
+| s_no | b_name | author       | price | publisher        |
++------+--------+--------------+-------+------------------+
+|    1 | DBMS   | seema kedhar |   250 | charulatha       |
+|    2 | toc    | john martin  |   400 | tata mcgraw hill |
+|    3 | c      | balagurusamy |   300 | technical        |
++------+--------+--------------+-------+------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from book where price=300;
++------+--------+--------------+-------+-----------+
+| s_no | b_name | author       | price | publisher |
++------+--------+--------------+-------+-----------+
+|    3 | c      | balagurusamy |   300 | technical |
++------+--------+--------------+-------+-----------+
+1 row in set (0.00 sec)
+
+mysql> insert into book(s_no,b_name,author,price,publisher)values(4,'new book','new author',350,'new publisher');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from book;
++------+----------+--------------+-------+------------------+
+| s_no | b_name   | author       | price | publisher        |
++------+----------+--------------+-------+------------------+
+|    1 | DBMS     | seema kedhar |   250 | charulatha       |
+|    2 | toc      | john martin  |   400 | tata mcgraw hill |
+|    3 | c        | balagurusamy |   300 | technical        |
+|    4 | new book | new author   |   350 | new publisher    |
++------+----------+--------------+-------+------------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table book drop column author;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from book;
++------+----------+-------+------------------+
+| s_no | b_name   | price | publisher        |
++------+----------+-------+------------------+
+|    1 | DBMS     |   250 | charulatha       |
+|    2 | toc      |   400 | tata mcgraw hill |
+|    3 | c        |   300 | technical        |
+|    4 | new book |   350 | new publisher    |
++------+----------+-------+------------------+
+4 rows in set (0.00 sec)
+
+mysql>
