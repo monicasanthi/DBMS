@@ -1,0 +1,152 @@
+### Task 1:
+
+#### (i) Who are the boy students registered for the course with the course number "C001"?
+sql
+SELECT `Student name`
+FROM COURSE
+WHERE Gender = 'Boy' AND CourseName = 'C001';
+
+
+#### (ii) Display all faculty details joined before "November 2014".
+sql
+SELECT *
+FROM COURSE
+WHERE `Faculty joined date` < '2014-11-01';
+
+
+#### (iii) Display all the courses not allotted to halls.
+sql
+SELECT *
+FROM COURSE
+WHERE `Hall name` IS NULL AND `Hall no` IS NULL;
+
+
+### Task 2:
+
+#### (i) Write a simple program using REPEAT and WHILE to build a string repeatedly until the variable becomes greater than 5.
+sql
+DELIMITER //
+
+CREATE PROCEDURE BuildString()
+BEGIN
+    DECLARE counter INT DEFAULT 0;
+    DECLARE finalString VARCHAR(255) DEFAULT '';
+
+    REPEAT
+        SET counter = counter + 1;
+        SET finalString = CONCAT(finalString, 'Repeating ');
+
+    UNTIL counter > 5 END REPEAT;
+
+    SELECT finalString;
+END //
+
+DELIMITER ;
+
+-- Call the procedure to execute the REPEAT loop
+CALL BuildString();
+
+
+#### (ii) Write a function that uses REPEAT statement, repeating the loop until income is greater than or equal to 4000.
+sql
+DELIMITER //
+
+CREATE PROCEDURE RepeatUntilIncome()
+BEGIN
+    DECLARE income INT DEFAULT 0;
+
+    REPEAT
+        SET income = income + 1000;
+
+    UNTIL income >= 4000 END REPEAT;
+
+    SELECT income AS FinalIncome;
+END //
+
+DELIMITER ;
+
+-- Call the procedure to execute the REPEAT loop
+CALL RepeatUntilIncome();
+
+
+### Task 3:
+
+sql
+-- Assuming you want to retrieve email-ids, you should have an 'Email' column in the EMPLOYEE table.
+
+-- Create a sample table
+CREATE TABLE EMPLOYEE (
+    EmpNo INT,
+    Name VARCHAR(50),
+    BankName VARCHAR(50),
+    Address VARCHAR(50),
+    BankLocation VARCHAR(50),
+    BranchName VARCHAR(50),
+    Email VARCHAR(50)
+);
+
+-- Sample data
+INSERT INTO EMPLOYEE VALUES
+(1, 'John Doe', 'ABC Bank', '123 Main St', 'City1', 'Branch1', 'john@example.com'),
+(2, 'Jane Smith', 'XYZ Bank', '456 Oak St', 'City2', 'Branch2', 'jane@example.com');
+
+-- Cursor program to retrieve email-ids
+DELIMITER //
+
+CREATE PROCEDURE GetEmailIds()
+BEGIN
+    DECLARE done BOOLEAN DEFAULT FALSE;
+    DECLARE email_id VARCHAR(50);
+
+    -- Declare cursor
+    DECLARE email_cursor CURSOR FOR SELECT Email FROM EMPLOYEE;
+
+    -- Declare handler for not found
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+    -- Open the cursor
+    OPEN email_cursor;
+
+    -- Fetch and print email-ids
+    email_loop: LOOP
+        FETCH email_cursor INTO email_id;
+        IF done THEN
+            LEAVE email_loop;
+        END IF;
+
+        -- Process the email_id as needed (print, store, etc.)
+        SELECT email_id;
+    END LOOP;
+
+    -- Close the cursor
+    CLOSE email_cursor;
+END //
+
+DELIMITER ;
+
+-- Call the procedure to execute the cursor
+CALL GetEmailIds();
+
+
+Replace the table structure and data with your actual EMPLOYEE table structure and data.
+
+### Task 4:
+
+Creating an ER diagram and related SQL queries for General Hospitals would depend on specific details about the entities, relationships, and attributes in your scenario. Here's a generic outline:
+
+#### General ER Diagram Structure:
+
+- Entities: Patient, Doctor, Nurse, Department, Appointment, etc.
+- Relationships: Patient visits Doctor, Doctor works in Department, Nurse assists Doctor, etc.
+- Attributes: PatientID, DoctorID, NurseID, DepartmentID, AppointmentID, etc.
+
+#### Sample SQL Query:
+
+sql
+-- Example query to get patients and their appointments
+SELECT Patient.PatientName, Appointment.AppointmentDate
+FROM Patient
+JOIN Appointment ON Patient.PatientID = Appointment.PatientID;
+
+
+For a more accurate ER diagram and related SQL queries, I would need detailed information about your General Hospitals scenario.
