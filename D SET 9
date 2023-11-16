@@ -1,0 +1,143 @@
+### Task 1:
+
+#### (i) Create a table STUDENT
+sql
+CREATE TABLE STUDENT (
+    RegNo INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Gender VARCHAR(10),
+    DOB DATE,
+    MobileNo VARCHAR(15),
+    City VARCHAR(50)
+);
+
+
+#### (ii) Create a table FACULTY
+sql
+CREATE TABLE FACULTY (
+    FacNo INT PRIMARY KEY,
+    FacName VARCHAR(50),
+    Gender VARCHAR(10),
+    DOB DATE,
+    DOJ DATE,
+    MobileNo VARCHAR(15)
+);
+
+
+#### (iii) Create a table DEPARTMENT
+sql
+CREATE TABLE DEPARTMENT (
+    DeptNo INT PRIMARY KEY,
+    DeptName VARCHAR(50),
+    DeptHead VARCHAR(50)
+);
+
+
+### Task 2:
+
+#### (i) List the departments where the faculty members are working (Using INNER JOIN)
+sql
+SELECT DISTINCT D.DeptName
+FROM DEPARTMENT D
+INNER JOIN FACULTY F ON D.DeptNo = F.DeptNo;
+
+
+#### (ii) Find the student who has no score in any of the courses. List student name and course number. (Using LEFT JOIN)
+sql
+SELECT S.Name, C.CourseNumber
+FROM STUDENT S
+LEFT JOIN SCORES SC ON S.RegNo = SC.RegNo
+LEFT JOIN COURSE C ON SC.CourseCode = C.CourseCode
+WHERE SC.CourseCode IS NULL;
+
+
+#### (iii) The office clerk needs the names of the courses taken by the faculty belonging to "ECE department whose name is 'Kamal". (Using INNER JOIN)
+sql
+SELECT F.FacName, C.CourseName
+FROM FACULTY F
+INNER JOIN DEPARTMENT D ON F.DeptNo = D.DeptNo
+INNER JOIN COURSE C ON D.DeptName = 'ECE' AND F.FacName = 'Kamal' AND C.DeptNo = D.DeptNo;
+
+
+### Task 3:
+
+sql
+-- Assuming you want to retrieve email-ids, you should have an 'Email' column in the EMPLOYEE table.
+
+-- Create a sample table
+CREATE TABLE EMPLOYEE (
+    EmpNo INT,
+    Name VARCHAR(50),
+    BankName VARCHAR(50),
+    Address VARCHAR(50),
+    BankLocation VARCHAR(50),
+    BranchName VARCHAR(50),
+    Email VARCHAR(50)
+);
+
+-- Sample data
+INSERT INTO EMPLOYEE VALUES
+(1, 'John Doe', 'ABC Bank', '123 Main St', 'City1', 'Branch1', 'john@example.com'),
+(2, 'Jane Smith', 'XYZ Bank', '456 Oak St', 'City2', 'Branch2', 'jane@example.com');
+
+-- Cursor program to retrieve email-ids
+DELIMITER //
+
+CREATE PROCEDURE GetEmailIds()
+BEGIN
+    DECLARE done BOOLEAN DEFAULT FALSE;
+    DECLARE email_id VARCHAR(50);
+
+    -- Declare cursor
+    DECLARE email_cursor CURSOR FOR SELECT Email FROM EMPLOYEE;
+
+    -- Declare handler for not found
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+    -- Open the cursor
+    OPEN email_cursor;
+
+    -- Fetch and print email-ids
+    email_loop: LOOP
+        FETCH email_cursor INTO email_id;
+        IF done THEN
+            LEAVE email_loop;
+        END IF;
+
+        -- Process the email_id as needed (print, store, etc.)
+        SELECT email_id;
+    END LOOP;
+
+    -- Close the cursor
+    CLOSE email_cursor;
+END //
+
+DELIMITER ;
+
+-- Call the procedure to execute the cursor
+CALL GetEmailIds();
+
+
+Replace the table structure and data with your actual EMPLOYEE table structure and data.
+
+### Task 4:
+
+Creating an ER diagram and related SQL queries for a Student Progress Monitoring System would depend on specific details about the entities, relationships, and attributes in your scenario. Here's a generic outline:
+
+#### General ER Diagram Structure:
+
+- Entities: Student, Course, Faculty, Department, Score, etc.
+- Relationships: Student enrolls in Course, Course is taught by Faculty, Department offers Course, etc.
+- Attributes: StudentID, FacultyID, DepartmentID, CourseID, ScoreID, etc.
+
+#### Sample SQL Query:
+
+sql
+-- Example query to get students and their enrolled courses
+SELECT Student.StudentName, Course.CourseName
+FROM Student
+JOIN Enrollment ON Student.StudentID = Enrollment.StudentID
+JOIN Course ON Enrollment.CourseID = Course.CourseID;
+
+
+For a more accurate ER diagram and related SQL queries, I would need detailed information about your Student Progress Monitoring System scenario.
