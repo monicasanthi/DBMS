@@ -1,0 +1,102 @@
+### Task 1:
+
+#### (i) Create table STUDENT with constraints
+sql
+CREATE TABLE STUDENT (
+    `Reg No.` INTEGER PRIMARY KEY,
+    Name VARCHAR(size_of_Name) NOT NULL
+);
+
+#### (ii) Alter the table STUDENT with the following details:
+sql
+-- Add column
+ALTER TABLE STUDENT ADD COLUMN `Colum Name` datatype;
+
+-- Add constraints
+ALTER TABLE STUDENT
+ADD CONSTRAINT pk_student PRIMARY KEY (`PRIMARY`),
+ADD CONSTRAINT check_student_XEY CHECK (`eNe MakinNo` IS NOT NULL);
+
+#### (iii) Create table FACULTY with constraints
+sql
+CREATE TABLE FACULTY (
+    FacNo INTEGER PRIMARY KEY,
+    Gender VARCHAR(size_of_Gender),
+    DeptNo INTEGER,
+    CONSTRAINT fk_faculty_dept FOREIGN KEY (DeptNo) REFERENCES DEPARTMENT(DeptNo)
+);
+
+#### (iv) Test if you can add a FOREIGN KEY constraint to the DeptNo of FACULTY
+sql
+-- Assuming the table FACULTY has been created
+ALTER TABLE FACULTY ADD CONSTRAINT fk_faculty_dept FOREIGN KEY (DeptNo) REFERENCES DEPARTMENT(DeptNo);
+
+### Task 2:
+
+#### (i) Which of the student's score is greater than the highest score?
+sql
+SELECT Name, Score
+FROM Students
+WHERE Score > (SELECT MAX(Score) FROM Students);
+
+#### (ii) Which of the students have written more than one assessment test?
+sql
+SELECT Name
+FROM Students
+WHERE RegNo IN (SELECT RegNo FROM Assessments GROUP BY RegNo HAVING COUNT(AssessmentID) > 1);
+
+#### (iii) Which faculty has joined recently and when?
+sql
+SELECT FacName, DOJ
+FROM FACULTY
+ORDER BY DOJ DESC
+LIMIT 1;
+
+
+### Task 3:
+
+#### (i) GRANT SELECT ON employee TO user1
+sql
+GRANT SELECT ON employee TO user1 WITH GRANT OPTION;
+
+
+#### (ii) REVOKE SELECT ON employee FROM user1
+sql
+REVOKE SELECT ON employee FROM user1;
+
+
+### Task 4:
+
+To connect MySQL using JDBC in Java, you need to use the appropriate JDBC driver for MySQL. Below is a basic example:
+
+java
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
+public class Main {
+    public static void main(String[] args) {
+        try {
+            // JDBC URL, username, and password of MySQL server
+            String url = "jdbc:mysql://localhost:3306/examDB";
+            String user = "your_username";
+            String password = "your_password";
+
+            // Establish the connection
+            Connection connection = DriverManager.getConnection(url, user, password);
+
+            // Create a statement
+            Statement statement = connection.createStatement();
+
+            // Execute the query
+            String query = "CREATE TABLE JavaLab(Name TEXT(16), Surname TEXT(6), City TEXT(6))";
+            statement.executeUpdate(query);
+
+            // Close the connection
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+Remember to replace your_username and your_password with your actual MySQL username and password. Also, ensure that you have the MySQL JDBC driver in your project's classpath.
