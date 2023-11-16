@@ -1,0 +1,104 @@
+Certainly! Let's break down the tasks.
+
+### Task 1:
+
+sql
+-- (0) Alter the table by adding a column Salary
+ALTER TABLE EMPLOYEE ADD COLUMN Salary INTEGER;
+
+-- (i) Alter the table by modifying the column Name
+ALTER TABLE EMPLOYEE MODIFY COLUMN Name VARCHAR(size_of_updated_Name);
+
+-- () Describe the table employee
+DESCRIBE EMPLOYEE;
+
+-- Rename table employee as emp
+RENAME TABLE EMPLOYEE TO emp;
+
+-- Delete the Second row from the table
+DELETE FROM emp WHERE S.No = 2;
+
+-- Drop the table
+DROP TABLE emp;
+
+
+### Task 2:
+
+sql
+-- Given the table EMPLOYEE (EmpNo, Name, Bank name, Address, Bank location, Branch name)
+-- Write a cursor program using MySQL to select the Bank names from the table.
+DELIMITER //
+
+CREATE PROCEDURE GetBankNames()
+BEGIN
+    DECLARE done BOOLEAN DEFAULT FALSE;
+    DECLARE bank_name VARCHAR(size_of_Bank_name);
+
+    DECLARE cur CURSOR FOR SELECT `Bank name` FROM EMPLOYEE;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+    OPEN cur;
+
+    read_loop: LOOP
+        FETCH cur INTO bank_name;
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+
+        -- Process the bank_name as needed (print, store, etc.)
+        SELECT bank_name;
+    END LOOP;
+
+    CLOSE cur;
+END //
+
+DELIMITER ;
+
+-- Call the procedure to execute the cursor
+CALL GetBankNames();
+
+
+### Task 3:
+
+sql
+-- Given the table CUSTOMERS (CustomerID, CustomerName, Address, Postal Code, Country)
+-- Write a procedure to display the customer names using the table
+DELIMITER //
+
+CREATE PROCEDURE DisplayCustomerNames()
+BEGIN
+    SELECT CustomerName FROM CUSTOMERS;
+END //
+
+DELIMITER ;
+
+-- Call the procedure to display customer names
+CALL DisplayCustomerNames();
+
+
+### Task 4:
+
+sql
+-- Create a table BANK with the field description S.No as integer, Cust_Name as varchar,
+-- Acc no as varchar, Balance as integer, Cus Branch as varchar
+CREATE TABLE BANK (
+    `S.No` INTEGER,
+    Cust_Name VARCHAR(size_of_Cust_Name),
+    `Acc no` VARCHAR(size_of_Acc_no),
+    Balance INTEGER,
+    `Cus Branch` VARCHAR(size_of_Cus_Branch)
+);
+
+-- Perform the following operations
+-- (i) Select with where clause and Select with comparison operator > Select with between in the field Balance
+SELECT * FROM BANK WHERE `Cus Branch` = 'Adyar';
+
+SELECT * FROM BANK WHERE Balance > 120000;
+
+SELECT * FROM BANK WHERE Balance BETWEEN 100000 AND 200000;
+
+-- (ii) Update the Cus Branch in the second row as Poonamallee
+UPDATE BANK SET `Cus Branch` = 'Poonamallee' WHERE `S.No` = 2;
+
+
+Remember to replace size_of_... with the appropriate sizes for your data types.
